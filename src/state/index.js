@@ -13,12 +13,12 @@ const sendMessage = async (_ctx, event) => {
     ],
   };
   const res = await fetch(
-    '****',
+    'https://api.airtable.com/v0/apprqknKF0qTzRuGH/Message',
     {
       method: 'POST',
       headers: new Headers({
         // API key should be confidential
-        Authorization: 'Bearer **',
+        Authorization: 'Bearer keyWR29lNpjiJJ***',
         'Content-Type': 'application/json',
       }),
       body: JSON.stringify(req),
@@ -42,6 +42,7 @@ export const appMachine = Machine({
         src: sendMessage,
         onDone: {
           target: 'success',
+          actions: assign({ fields: (_context, event) => event.data }),
         },
         onError: {
           target: 'failed',
@@ -54,8 +55,7 @@ export const appMachine = Machine({
   },
   on: {
     SEND: {
-      target: 'sending',
-      actions: assign({ fields: (_context, event) => event.data }),
+      target: 'sending'
     },
   },
 });

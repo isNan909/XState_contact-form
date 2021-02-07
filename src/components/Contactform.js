@@ -89,18 +89,23 @@ function ContactForm() {
                     ref={about}
                   />
                 </div>
-                <Submit clickSubmit={() => sendMessage()} />
               </form>
               {machine.matches('sending') && (
-                <span>submitting</span>
+                <span>
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </span>
               )}
-              {machine.matches('success') && <span>sucess</span>}
+              {machine.matches('success') && (
+                <span>
+                  Thankyou for contacting us. we will get back to you soon.
+                </span>
+              )}
               {machine.matches('idle') && (
-                <span>submit the form</span>
+                <Submit clickSubmit={() => sendMessage()} />
               )}
-              {machine.matches('failed') && (
-                <span>failed in submittion</span>
-              )}
+              {machine.matches('failed') && <span>Failed in submittion</span>}
             </div>
             <div className="col-lg-6 order-1 order-lg-2 hero-img">
               <img src={team} className="img-fluid" alt="team members" />
